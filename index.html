@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Durée</title>
+<meta name="description" content="数字像沙一样落进看不见的钟表，被走动的指针扫落。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap">
+<style>
+  html, body { margin: 0; height: 100%; background: #fff; overflow: hidden; }
+  main { position: fixed; inset: 0; }
+  canvas { display: block; touch-action: none; }
+  #gate {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: calc(50% + 6.5vmin);
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+    color: #111;
+    background: none;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  #enter {
+    pointer-events: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: 500 0.95rem/1 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  #enter:hover { opacity: 0.55; }
+  #enter:focus { outline: none; }
+  #blurb {
+    pointer-events: none;
+    box-sizing: border-box;
+    width: min(38em, calc(100% - 3rem));
+    margin: 1.15em auto 0;
+    padding: 0;
+    color: #111;
+    background: transparent;
+    font: 500 0.8rem/1.5 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: left;
+    text-wrap: pretty;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body>
+<div id="gate">
+  <button type="button" id="enter">click enter</button>
+  <p id="blurb">This work, "Durée" is French for duration, a philosophical term coined by Henri Bergson to explore the continuation of time as always mobile and incomplete. Digits from 1 to 9, representing time, fall like sand into nine invisible clocks. Each hand turns at its own speed, gathering numbers, then sweeping them away, this represents different aspects of daily life, and passage of time in the unnoticed measures. Time seeps through in all seen and unseen corners, but one could not divert their attention to all of them, so some/even most of time is destined to be lost. This work imagines time to be infinite, so the process of preserving time becomes numb, and eventually accepting it and simply letting it flow.</p>
+</div>
+<main id="stage"></main>
+<script>
+  window.__dureeEntered = false;
+  const enterBtn = document.getElementById('enter');
+  function enterNow(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (window.__dureeEntered) return;
+    window.__dureeEntered = true;
+    const blurb = document.getElementById('blurb');
+    try {
+      if (typeof burstButton === 'function') burstButton(enterBtn);
+      if (blurb && typeof burstBlock === 'function') burstBlock(blurb);
+    } finally {
+      const gate = document.getElementById('gate');
+      if (gate) gate.remove();
+    }
+  }
+  enterBtn.addEventListener('mousedown', enterNow);
+  enterBtn.addEventListener('click', enterNow);
+</script>
+<script src="sketch.js"></script>
+</body>
+</html>
