@@ -1056,8 +1056,11 @@ function updateClockTicks(dt) {
 
 // 选中表的响滴答同时一记短触觉，不另开计时。手机用 vibrate；
 // 这台 Mac 上桌面浏览器到不了触控板，所以顺手丢给本机 haptic-bridge。
+// 线上页面是 https，会拦住 http://127.0.0.1，所以改走本机 https。
 // 桥没开也不等它，动画和声音照常走。
-var HAPTIC_URL = 'http://127.0.0.1:8767/tap';
+var HAPTIC_URL = (typeof location !== 'undefined' && location.protocol === 'https:')
+  ? 'https://127.0.0.1:8768/tap'
+  : 'http://127.0.0.1:8767/tap';
 
 function tapSelectedClock() {
   try {
